@@ -1,5 +1,5 @@
 {
-  "name": "Vue-Flash",
+  "name": "vue-flash",
   "description": "A Vue.js flash component heavily inspired by Jeffrey Way of Laracasts",
   "version": "1.0.0",
   "main": "build/Flash.vue",
