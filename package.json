@@ -6,7 +6,14 @@
   "repository": "andyleach/Vue-Flash",
   "author": "andyleach",
   "devDependencies": {
+    "laravel-mix": "^0.11.4",
     "vue": "^2.3.3"
+  },
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack --progress --hide-modules",
+    "watch": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules",
+    "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
+    "production": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
     "ucfirst": "github:deathcap/ucfirst"
