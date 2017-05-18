@@ -16,6 +16,10 @@
             message: {
                 type: String,
                 default: ''
+            },
+            timeout: {
+                type: Number,
+                default: 3000
             }
         },
 
@@ -45,16 +49,17 @@
                 'flash', (message, type) => this.flash(message, type)
             );
         },
+        
         computed: {
             /**
              * Set our first character of the message type to uppercase
              */
             status() {
-                if(this.msgtype == 'danger') {
-                    return 'Error: ';
+                if(this.msgtype === undefined) {
+                    return '';
                 }
 
-                return ucfirst(this.type + ': ');
+                return ucfirst(this.msgtype) + ': ';
             },
         },
 
@@ -67,9 +72,11 @@
              * @param type
              */
             flash(message, type) {
+                this.reset();
+                // Update our data properties
                 this.body = message;
                 this.msgtype = type;
-                this.classObject['alert-'+type] = true;
+                this.classObject['alert-'+(type == 'error' ? 'danger' : type)] = true;
                 this.show = true;
 
                 this.hide();
@@ -81,7 +88,21 @@
             hide() {
                 setTimeout(() => {
                     this.show = false;
-                }, 3000);
+                }, this.timeout);
+            },
+
+            /**
+             * Reset the values of the classObject to their default values
+             */
+            reset() {
+                for (var name in this.classObject) {
+                    // skip loop if the property is from prototype
+                    if(!this.classObject.hasOwnProperty(name)) continue;
+
+                    this.classObject[name] = false;
+                }
+
+                this.classObject['alert'] = true;
             }
         },
     }
