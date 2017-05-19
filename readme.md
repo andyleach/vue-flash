@@ -31,8 +31,6 @@ Build A Forum With Laravel</a></strong> course. I highly recommend anyone intere
     };
     
     Vue.component('flash', require('vue-flash'));
-
-'));
     
     var app = new Vue({
         el: '#app',
