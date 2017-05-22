@@ -41,4 +41,16 @@ Build A Forum With Laravel</a></strong> course. I highly recommend anyone intere
 
 ```javascript
 flash('Hello World', 'success');
+flash('Hello World', 'error');
+flash('Hello World', 'warning');
+flash('Hello World', 'info');
 ```
+
+## Props
+
+| Name       | Type   | Default    | Restrictions                  |
+|------------|--------|------------|-------------------------------|
+| Type       | String | success    | success, warning, error, info |
+| message    | String | ''         |                               |
+| timeout    | Number | 3000       |                               |
+| transition | String | slide-fade | fade, slide-fade, bounce      |

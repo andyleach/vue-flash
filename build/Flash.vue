@@ -1,8 +1,10 @@
 <template>
-    <div :class="classObject" role="alert" v-show="show">
-        <strong>{{ status }}</strong><br>
-        {{ body }}
-    </div>
+    <transition :name="transition">
+        <div :class="classObject" role="alert" v-show="show">
+            <strong>{{ status }}</strong><br>
+            {{ body }}
+        </div>
+    </transition>
 </template>
 <script>
     var ucfirst = require('ucfirst');
@@ -20,6 +22,10 @@
             timeout: {
                 type: Number,
                 default: 3000
+            },
+            transition: {
+                type: String,
+                default: 'slide-fade'
             }
         },
 
@@ -113,5 +119,51 @@
         right: 25px;
         bottom: 25px;
         z-index:9999;
+    }
+
+    /**
+     * Fade transition styles
+     */
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+        opacity: 0
+    }
+
+    /**
+     * Bounce transition styles
+     */
+    .bounce-enter-active {
+        animation: bounce-in .5s;
+    }
+    .bounce-leave-active {
+        animation: bounce-in .5s reverse;
+    }
+    @keyframes bounce-in {
+        0% {
+            transform: scale(0);
+        }
+        50% {
+            transform: scale(1.5);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    /**
+     * Slide transition styles
+     */
+    .slide-fade-enter-active {
+        transition: all .3s ease;
+    }
+    .slide-fade-leave-active {
+        transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+        /* .slide-fade-leave-active for <2.1.8 */ {
+        transform: translateX(10px);
+        opacity: 0;
     }
 </style>
