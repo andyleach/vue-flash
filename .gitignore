@@ -2,3 +2,4 @@ node_modules
 .idea
 .DS_Store
 mix-manifest.json
+demo/app.js
