@@ -2,7 +2,7 @@
     <div class="alert-wrap">
         <transition-group :name="transition" tag="div">
             <div :class="item.classObject" role="alert" :key="index" v-show="item.show" v-for="(item, index) in notifications">
-                <strong>{{ item.type }}</strong><br>
+                <strong>{{ item.type }}:</strong><br>
                 {{ item.message }}
             </div>
         </transition-group>
@@ -13,14 +13,6 @@
 
     export default {
         props: {
-            type: {
-                type: String,
-                default: 'success'
-            },
-            message: {
-                type: String,
-                default: ''
-            },
             timeout: {
                 type: Number,
                 default: 3000
@@ -67,7 +59,7 @@
                 }
 
                 this.notifications.push(item);
-                this.hide(item);
+                setTimeout(this.hide, this.timeout);
             },
 
             /**
@@ -91,13 +83,14 @@
             },
 
             /**
-             * Hide our Alert after 3 seconds
+             * Hide Our Alert
+             *
+             * @param item
              */
-            hide(item) {
+            hide(item = this.notifications[0]) {
                 let key = this.notifications.indexOf(item);
-                setTimeout(() => {
-                    this.notifications[key].show = false;
-                }, this.timeout);
+                this.notifications[key].show = false;
+                this.notifications.splice(key, 1);
             }
         },
     }
