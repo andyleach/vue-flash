@@ -21,7 +21,7 @@ window.flash = function(message, type) {
     window.events.$emit('flash', message, type);
 };
 
-Vue.component('flash', require('../../build/Flash.vue'));
+Vue.component('flash', require('../../src/Flash.vue'));
 
 var app = new Vue({
     el: '#app',
