@@ -50,7 +50,5 @@ flash('Hello World', 'info');
 
 | Name       | Type   | Default    | Restrictions                  |
 |------------|--------|------------|-------------------------------|
-| Type       | String | success    | success, warning, error, info |
-| message    | String | ''         |                               |
 | timeout    | Number | 3000       |                               |
 | transition | String | slide-fade | fade, slide-fade, bounce      |
