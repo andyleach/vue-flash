@@ -1,24 +1,18 @@
 <template>
-    <transition :name="transition">
-        <div :class="classObject" role="alert" v-show="show">
-            <strong>{{ status }}</strong><br>
-            {{ body }}
-        </div>
-    </transition>
+    <div class="alert-wrap">
+        <transition-group :name="transition" tag="div">
+            <div :class="item.classObject" role="alert" :key="index" v-show="item.show" v-for="(item, index) in notifications">
+                <strong>{{ item.type }}:</strong><br>
+                {{ item.message }}
+            </div>
+        </transition-group>
+    </div>
 </template>
 <script>
     var ucfirst = require('ucfirst');
 
     export default {
         props: {
-            type: {
-                type: String,
-                default: 'success'
-            },
-            message: {
-                type: String,
-                default: ''
-            },
             timeout: {
                 type: Number,
                 default: 3000
@@ -30,16 +24,7 @@
         },
 
         data: () => ({
-            body: '',
-            msgtype: this.type,
-            show: false,
-            classObject: {
-                'alert':         true,
-                'alert-danger':  false,
-                'alert-success': false,
-                'alert-info':    false,
-                'alert-warning': false,
-            }
+            notifications: []
         }),
 
         /**
@@ -55,19 +40,6 @@
                 'flash', (message, type) => this.flash(message, type)
             );
         },
-        
-        computed: {
-            /**
-             * Set our first character of the message type to uppercase
-             */
-            status() {
-                if(this.msgtype === undefined) {
-                    return '';
-                }
-
-                return ucfirst(this.msgtype) + ': ';
-            },
-        },
 
         methods: {
             /**
@@ -78,43 +50,53 @@
              * @param type
              */
             flash(message, type) {
-                this.reset();
                 // Update our data properties
-                this.body = message;
-                this.msgtype = type;
-                this.classObject['alert-'+(type == 'error' ? 'danger' : type)] = true;
-                this.show = true;
-
-                this.hide();
-            },
-
-            /**
-             * Hide our Alert after 3 seconds
-             */
-            hide() {
-                setTimeout(() => {
-                    this.show = false;
-                }, this.timeout);
-            },
-
-            /**
-             * Reset the values of the classObject to their default values
-             */
-            reset() {
-                for (var name in this.classObject) {
-                    // skip loop if the property is from prototype
-                    if(!this.classObject.hasOwnProperty(name)) continue;
-
-                    this.classObject[name] = false;
+                let item = {
+                    message: message,
+                    type: ucfirst(type),
+                    classObject: this.classes(type),
+                    show: true
                 }
 
-                this.classObject['alert'] = true;
+                this.notifications.push(item);
+                setTimeout(this.hide, this.timeout);
+            },
+
+            /**
+             * Sets and returns the values for our notification item's classObject
+             *
+             * @param message
+             * @param type
+             */
+            classes(type) {
+                let classes = {
+                    'alert':         true,
+                    'alert-danger':  false,
+                    'alert-success': false,
+                    'alert-info':    false,
+                    'alert-warning': false,
+                }
+
+                classes['alert-'+(type == 'error' ? 'danger' : type)] = true;
+
+                return classes;
+            },
+
+            /**
+             * Hide Our Alert
+             *
+             * @param item
+             */
+            hide(item = this.notifications[0]) {
+                let key = this.notifications.indexOf(item);
+                this.notifications[key].show = false;
+                this.notifications.splice(key, 1);
             }
         },
     }
 </script>
 <style scoped>
-    .alert {
+    .alert-wrap {
         position: fixed;
         right: 25px;
         bottom: 25px;
