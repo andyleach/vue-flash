@@ -32,10 +32,6 @@
          * flash event from global event bus
          */
         created() {
-            if(this.message && this.type) {
-                this.flash(this.message, this.type);
-            }
-
             window.events.$on(
                 'flash', (message, type) => this.flash(message, type)
             );
