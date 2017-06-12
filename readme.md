@@ -4,6 +4,9 @@ If you are interested in learning more about the lesson this package is based up
 may view it in his <strong><a href="https://laracasts.com/series/lets-build-a-forum-with-laravel/episodes/29">Let's 
 Build A Forum With Laravel</a></strong> course. I highly recommend anyone interested in Vue or Laravel <strong><a href="https://laracasts.com/join">subscribe to Laracasts</a></strong>, it's the best $9 a month you can spend.</p>
 
+<h3><a href="http://vueflash.leachcreative.com/">Demo</a></h3>
+
+
 ## Setup
 
 ```javascript

@@ -3,3 +3,4 @@ node_modules
 .DS_Store
 mix-manifest.json
 demo/app.js
+demo
