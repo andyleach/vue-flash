@@ -55,3 +55,6 @@ flash('Hello World', 'info');
 |------------|--------|------------|-------------------------------|
 | timeout    | Number | 3000       |                               |
 | transition | String | slide-fade | fade, slide-fade, bounce      |
+
+## License
+<p>Vue-Flash is open-sourced software licensed under the <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
