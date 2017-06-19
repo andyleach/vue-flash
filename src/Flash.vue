@@ -2,8 +2,7 @@
     <div class="alert-wrap">
         <transition-group :name="transition" tag="div">
             <div :class="item.classObject" role="alert" :key="index" v-show="item.show" v-for="(item, index) in notifications">
-                <strong>{{ item.type }}:</strong><br>
-                {{ item.message }}
+                <span v-html="item.message"></span>
             </div>
         </transition-group>
     </div>
