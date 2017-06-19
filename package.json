@@ -15,7 +15,6 @@
     "production": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "ucfirst": "github:deathcap/ucfirst",
     "vue": "^2.3.3"
   }
 }

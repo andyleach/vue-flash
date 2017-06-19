@@ -9,8 +9,6 @@
     </div>
 </template>
 <script>
-    var ucfirst = require('ucfirst');
-
     export default {
         props: {
             timeout: {
@@ -49,7 +47,7 @@
                 // Update our data properties
                 let item = {
                     message: message,
-                    type: ucfirst(type),
+                    type: type,
                     classObject: this.classes(type),
                     show: true
                 }
