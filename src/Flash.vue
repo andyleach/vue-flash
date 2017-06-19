@@ -44,15 +44,12 @@
              * @param type
              */
             flash(message, type) {
-                // Update our data properties
-                let item = {
+                this.notifications.push({
                     message: message,
                     type: type,
                     classObject: this.classes(type),
                     show: true
-                }
-
-                this.notifications.push(item);
+                });
                 setTimeout(this.hide, this.timeout);
             },
 
