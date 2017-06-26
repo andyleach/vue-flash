@@ -1,8 +1,8 @@
 <template>
     <div class="alert-wrap">
         <transition-group :name="transition" tag="div">
-            <div :class="item.classObject" role="alert" :key="index" v-show="item.show" v-for="(item, index) in notifications">
-                <span v-html="item.message"></span>
+            <div :class="item.typeObject" role="alert" :key="index" v-show="item.show" v-for="(item, index) in notifications">
+                <span v-if="displayIcons" :class="item.iconObject"></span> <span v-html="item.message"></span>
             </div>
         </transition-group>
     </div>
@@ -18,7 +18,7 @@
                 type: String,
                 default: 'slide-fade'
             },
-            settings: {
+            types: {
                 type: Object,
                 default: () => ({
                     base:    'alert',
@@ -27,7 +27,21 @@
                     warning: 'alert-warning',
                     info:    'alert-info'
                 })
-            }
+            },
+            displayIcons: {
+                type: Boolean,
+                default: false
+            },
+            icons: {
+                type: Object,
+                default: () => ({
+                    base:    'fa',
+                    error:   'fa-exclamation-circle',
+                    success: 'fa-check-circle',
+                    info:    'fa-info-circle',
+                    warning: 'fa-exclamation-circle',
+                })
+            },
         },
 
         data: () => ({
@@ -56,27 +70,26 @@
                 this.notifications.push({
                     message: message,
                     type: type,
-                    classObject: this.classes(type),
+                    typeObject: this.classes(this.types, type),
+                    iconObject: this.classes(this.icons, type),
                     show: true
                 });
                 setTimeout(this.hide, this.timeout);
             },
 
             /**
-             * Sets and returns the values for our notification item's classObject
+             * Sets and returns the values needed
              *
-             * @param message
              * @param type
              */
-            classes(type) {
+            classes(propObject, type) {
                 let classes = {};
 
-                // Build Our Class Object
-                classes[this.settings.base] = true;
-                for (var property in this.settings) {
-                    if (this.settings.hasOwnProperty(property) && property !== type) {
-                        classes[this.settings[type]] = true;
-                    }
+                if(propObject.hasOwnProperty('base')) {
+                    classes[propObject.base] = true;
+                }
+                if (propObject.hasOwnProperty(type)) {
+                    classes[propObject[type]] = true;
                 }
 
                 return classes;
