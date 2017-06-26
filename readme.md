@@ -6,7 +6,6 @@ Build A Forum With Laravel</a></strong> course. I highly recommend anyone intere
 
 <h3><a href="http://vueflash.leachcreative.com/">Demo</a></h3>
 
-
 ## Setup
 
 ```javascript
@@ -49,14 +48,33 @@ flash('Hello World', 'warning');
 flash('Hello World', 'info');
 ```
 
-## Props
+### Using Icons In Vue-Flash
+<p>While an icon library isn't included in this library by default raw html can be included in the flash message to allow you to include a icon library of your choice</p>
 
-| Name       | Type    | Default    | Restrictions                  |
-|------------|---------|------------|-------------------------------|
-| timeout    | Number  | 3000       |                               |
-| transition | String  | slide-fade | fade, slide-fade, bounce      |
-| bulma      | Boolean | false      |                               |
-| icon       | Boolean | false      |                               |
+```javascript
+flash('<strong><i class="fa-exclamation-circle fa"></i> Success</strong> hello world', 'success');
+```
+
+### Customizing Alert Classes
+<p>By default, <strong>Vue-Flash</strong> uses the alert classes from Twitter Boostrap, however it also supports the ability to integrate with the css framework of your choice using the settings prop.  Using this prop you can assign alert classes to a specific alert type as an object as example of which can be found below.</p>
+
+```json
+{
+    base:    'alert',
+    success: 'alert-success',
+    error:   'alert-danger',
+    warning: 'alert-warning',
+    info:    'alert-info'
+}
+```
+
+### Props
+
+| Name       | Type    | Default        | Restrictions                  |
+|------------|---------|----------------|-------------------------------|
+| timeout    | Number  | 3000           |                               |
+| transition | String  | slide-fade     | fade, slide-fade, bounce      |
+| settings   | Object  | See above      |                               |
 
 ## License
 <p>Vue-Flash is open-sourced software licensed under the <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>

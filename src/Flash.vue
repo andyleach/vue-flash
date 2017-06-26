@@ -2,12 +2,6 @@
     <div class="alert-wrap">
         <transition-group :name="transition" tag="div">
             <div :class="item.classObject" role="alert" :key="index" v-show="item.show" v-for="(item, index) in notifications">
-                <span class="icon" v-if="bulma">
-                    <i class="fa" :class="item.iconObject" v-if="icon"></i>
-                </span>
-
-                <i class="fa" :class="item.iconObject" v-if="icon && !bulma"></i>
-
                 <span v-html="item.message"></span>
             </div>
         </transition-group>
@@ -24,13 +18,15 @@
                 type: String,
                 default: 'slide-fade'
             },
-            bulma: {
-                type: Boolean,
-                default: false
-            },
-            icon: {
-                type: Boolean,
-                default: false
+            settings: {
+                type: Object,
+                default: () => ({
+                    base:    'alert',
+                    success: 'alert-success',
+                    error:   'alert-danger',
+                    warning: 'alert-warning',
+                    info:    'alert-info'
+                })
             }
         },
 
@@ -61,7 +57,6 @@
                     message: message,
                     type: type,
                     classObject: this.classes(type),
-                    iconObject: this.icons(type),
                     show: true
                 });
                 setTimeout(this.hide, this.timeout);
@@ -74,45 +69,17 @@
              * @param type
              */
             classes(type) {
-                let prefix = 'alert';
-                let classes = {
-                    'alert': true,
-                    'alert-danger':  false,
-                    'alert-success': false,
-                    'alert-info':    false,
-                    'alert-warning': false,
-                };
+                let classes = {};
 
-                if(this.bulma){
-                    classes = {
-                        'notification': true,
-                        'is-danger':  false,
-                        'is-success': false,
-                        'is-info':    false,
-                        'is-warning': false,
-                    };
-                    prefix = 'is';
+                // Build Our Class Object
+                classes[this.settings.base] = true;
+                for (var property in this.settings) {
+                    if (this.settings.hasOwnProperty(property) && property !== type) {
+                        classes[this.settings[type]] = true;
+                    }
                 }
 
-                classes[prefix+'-'+(type === 'error' ? 'danger' : type)] = true;
-
                 return classes;
-            },
-            /**
-             * Sets and returns the values for our notification item's icon
-             *
-             * @param type
-             */
-            icons(type) {
-
-                let icons = {
-                    'danger':  'fa-exclamation-circle',
-                    'success': 'fa-check-circle',
-                    'info':    'fa-info-circle',
-                    'warning': 'fa-exclamation-circle',
-                };
-
-                return icons[type];
             },
 
             /**
