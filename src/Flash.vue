@@ -70,6 +70,7 @@
             /**
              * Sets and returns the values for our notification item's classObject
              *
+             * @param message
              * @param type
              */
             classes(type) {
