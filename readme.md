@@ -51,10 +51,12 @@ flash('Hello World', 'info');
 
 ## Props
 
-| Name       | Type   | Default    | Restrictions                  |
-|------------|--------|------------|-------------------------------|
-| timeout    | Number | 3000       |                               |
-| transition | String | slide-fade | fade, slide-fade, bounce      |
+| Name       | Type    | Default    | Restrictions                  |
+|------------|---------|------------|-------------------------------|
+| timeout    | Number  | 3000       |                               |
+| transition | String  | slide-fade | fade, slide-fade, bounce      |
+| bulma      | Boolean | false      |                               |
+| icon       | Boolean | false      |                               |
 
 ## License
 <p>Vue-Flash is open-sourced software licensed under the <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
