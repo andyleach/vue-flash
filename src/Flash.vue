@@ -1,8 +1,8 @@
 <template>
     <div class="alert-wrap">
         <transition-group :name="transition" tag="div">
-            <div :class="item.classObject" role="alert" :key="index" v-show="item.show" v-for="(item, index) in notifications">
-                <span v-html="item.message"></span>
+            <div :class="item.typeObject" role="alert" :key="index" v-show="item.show" v-for="(item, index) in notifications">
+                <span v-if="displayIcons" :class="item.iconObject"></span> <span v-html="item.message"></span>
             </div>
         </transition-group>
     </div>
@@ -17,7 +17,31 @@
             transition: {
                 type: String,
                 default: 'slide-fade'
-            }
+            },
+            types: {
+                type: Object,
+                default: () => ({
+                    base:    'alert',
+                    success: 'alert-success',
+                    error:   'alert-danger',
+                    warning: 'alert-warning',
+                    info:    'alert-info'
+                })
+            },
+            displayIcons: {
+                type: Boolean,
+                default: false
+            },
+            icons: {
+                type: Object,
+                default: () => ({
+                    base:    'fa',
+                    error:   'fa-exclamation-circle',
+                    success: 'fa-check-circle',
+                    info:    'fa-info-circle',
+                    warning: 'fa-exclamation-circle',
+                })
+            },
         },
 
         data: () => ({
@@ -46,28 +70,27 @@
                 this.notifications.push({
                     message: message,
                     type: type,
-                    classObject: this.classes(type),
+                    typeObject: this.classes(this.types, type),
+                    iconObject: this.classes(this.icons, type),
                     show: true
                 });
                 setTimeout(this.hide, this.timeout);
             },
 
             /**
-             * Sets and returns the values for our notification item's classObject
+             * Sets and returns the values needed
              *
-             * @param message
              * @param type
              */
-            classes(type) {
-                let classes = {
-                    'alert':         true,
-                    'alert-danger':  false,
-                    'alert-success': false,
-                    'alert-info':    false,
-                    'alert-warning': false,
-                }
+            classes(propObject, type) {
+                let classes = {};
 
-                classes['alert-'+(type == 'error' ? 'danger' : type)] = true;
+                if(propObject.hasOwnProperty('base')) {
+                    classes[propObject.base] = true;
+                }
+                if (propObject.hasOwnProperty(type)) {
+                    classes[propObject[type]] = true;
+                }
 
                 return classes;
             },

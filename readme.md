@@ -6,7 +6,6 @@ Build A Forum With Laravel</a></strong> course. I highly recommend anyone intere
 
 <h3><a href="http://vueflash.leachcreative.com/">Demo</a></h3>
 
-
 ## Setup
 
 ```javascript
@@ -49,12 +48,39 @@ flash('Hello World', 'warning');
 flash('Hello World', 'info');
 ```
 
-## Props
+### Customizing Alert Classes
+<p>By default, <strong>Vue-Flash</strong> uses the alert classes from Twitter Boostrap, however it also supports the ability to integrate with the css framework of your choice using the types prop.  Using this prop you can assign alert classes to a specific alert type as an object as example of which can be found below.</p>
 
-| Name       | Type   | Default    | Restrictions                  |
-|------------|--------|------------|-------------------------------|
-| timeout    | Number | 3000       |                               |
-| transition | String | slide-fade | fade, slide-fade, bounce      |
+```javascript
+{
+    base:    'alert',
+    success: 'alert-success',
+    error:   'alert-danger',
+    warning: 'alert-warning',
+    info:    'alert-info'
+}
+```
 
+### Supporting Icon Libraries
+<p>By default, <strong>Vue-Flash</strong> does not include any icon libraries because I wish to keep dependencies to an absolute minimum so that the user of the package can decide what to include and what to not include.  If however you desire to include a icon library this feature can be turned on if you set the displayIcons(:display-icons="true") property to true.  Default values for what icons(Font Awesome) are used for a alert type have been preset to for success, error, warning and info.  If you wish to set your own you can use the same format as when setting alert classes.  See below for an example:
+
+```javascript
+{
+    base:    'fa',
+    success: 'fa-check-circle',
+    error:   'fa-exclamation-circle',
+    warning: 'fa-exclamation-circle',
+    info:    'fa-info-circle'
+}
+```
+
+### Props
+
+| Name       | Type    | Default        | Restrictions                  |
+|------------|---------|----------------|-------------------------------|
+| timeout    | Number  | 3000           |                               |
+| transition | String  | slide-fade     | fade, slide-fade, bounce      |
+| types      | Object  | See above      |                               |
+| icons      | Object  | See above      |                               |
 ## License
 <p>Vue-Flash is open-sourced software licensed under the <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
