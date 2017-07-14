@@ -1,7 +1,7 @@
 <template>
     <div class="alert-wrap">
         <transition-group :name="transition" tag="div">
-            <div :class="item.typeObject" role="alert" :key="index" v-show="item.show" v-for="(item, index) in notifications">
+            <div :class="item.typeObject" role="alert" :key="index" v-for="(item, index) in notifications">
                 <span v-if="displayIcons" :class="item.iconObject"></span> <span v-html="item.message"></span>
             </div>
         </transition-group>
