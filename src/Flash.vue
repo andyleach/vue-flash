@@ -1,7 +1,7 @@
 <template>
     <div class="alert-wrap">
         <transition-group :name="transition" tag="div">
-            <div :class="item.typeObject" role="alert" :key="index" v-show="item.show" v-for="(item, index) in notifications">
+            <div :class="item.typeObject" role="alert" :key="index" v-for="(item, index) in notifications">
                 <span v-if="displayIcons" :class="item.iconObject"></span> <span v-html="item.message"></span>
             </div>
         </transition-group>
@@ -71,8 +71,7 @@
                     message: message,
                     type: type,
                     typeObject: this.classes(this.types, type),
-                    iconObject: this.classes(this.icons, type),
-                    show: true
+                    iconObject: this.classes(this.icons, type)
                 });
                 setTimeout(this.hide, this.timeout);
             },
@@ -102,7 +101,6 @@
              */
             hide(item = this.notifications[0]) {
                 let key = this.notifications.indexOf(item);
-                this.notifications[key].show = false;
                 this.notifications.splice(key, 1);
             }
         },
