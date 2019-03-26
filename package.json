@@ -1,7 +1,7 @@
 {
   "name": "vue-flash",
   "description": "A Vue.js flash component heavily inspired by Jeffrey Way of Laracasts",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "main": "src/Flash.vue",
   "repository": "andyleach/Vue-Flash",
   "author": "andyleach",
@@ -15,6 +15,6 @@
     "production": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "vue": "^2.3.3"
+    "vue": "^2.6.10"
   }
 }
